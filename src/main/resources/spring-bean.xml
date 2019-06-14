@@ -120,6 +120,7 @@
 				<!--  anon 匿名访问 -->
 				/login.do = anon
 				/login.jsp = anon
+				/media/**=anon
 				<!--  authc 经过身份认证后才能访问 -->
 				/** = authc
 
