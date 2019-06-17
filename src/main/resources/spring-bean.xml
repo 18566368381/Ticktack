@@ -125,8 +125,7 @@
 				/** = authc
 
 				<!-- 配置权限 -->
-				/test.do = perms["user:list"]
-				/test2.do = perms["user:ddd"]
+
 
 				<!--  /login=anon
                  /user/admin*=authc

@@ -26,8 +26,9 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
         // 获取登录后的合法的用户名
+        //name  是用户名 no(工号，学号)
         String name = (String)principals.getPrimaryPrincipal();
-        // 从数据库中好擦U型你用户的角色和权限列表
+        // 从数据库中查询你用户的角色和权限列表
         List<String> roles = userDao.findRolesByName(name);
         List<String> perms = userDao.findPermsByName(name);
 
@@ -35,7 +36,7 @@ public class MyRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setRoles(new HashSet<>(roles));
         info.setStringPermissions(new HashSet<>(perms));
-        return null;
+        return info;
     }
     // 获取认证信息
     @Override
@@ -56,7 +57,7 @@ public class MyRealm extends AuthorizingRealm {
             info = new SimpleAuthenticationInfo(name, user.getPassword(), this.getName());
         }
 
-        return null;
+        return info;
     }
 }
 

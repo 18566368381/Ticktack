@@ -8,10 +8,10 @@ import java.util.List;
  * Created by C on 2019/6/13.
  */
 public interface UserDao {
-    public User findByName(String name);
+     User findByName(String name);
     // 根据用户查询用户拥有的角色
-    public List<String> findRolesByName(String name);
+     List<String> findRolesByName(String name);
     // 查询用户拥有的权限
-    public List<String> findPermsByName(String name);
+     List<String> findPermsByName(String name);
 
 }
