@@ -55,7 +55,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="media/images/qf_logo.png" class="layui-nav-img">
-                    Feri
+                    <shiro:principal></shiro:principal>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:showTab(1001,'user.html','我的信息');">我的信息</a></dd>
@@ -75,9 +75,9 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">权限管理</a>
                     <dl class="layui-nav-child">
-                        <shiro:hasPermission name="yhjs:list"><dd><a href="javascript:;">用户角色</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="zygl:list"><dd><a href="javascript:;">资源管理</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="jsqx:list"><dd><a href="javascript:;">角色权限</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="yhjs:list"><dd><a href="javascript:showTab(20000,'userlimit.jsp','用户角色');">用户角色</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="zygl:list"><dd><a href="javascript:showTab(20000,'resourcelimit.jsp','资源管理');">资源管理</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="jsqx:list"><dd><a href="javascript:showTab(20000,'rolelimit.jsp','角色权限');">角色权限</a></dd></shiro:hasPermission>
 
                     </dl>
                 </li>
@@ -86,9 +86,9 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">考勤管理</a>
                     <dl class="layui-nav-child">
-                        <shiro:hasPermission name="qjjb:list"><dd><a href="javascript:;">请假加班</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="dbsx:list"><dd><a href="javascript:;">待办事项</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="wdjl:list"><dd><a href="javascript:;">我的记录</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="qjjb:list"><dd><a href="javascript:showTab(20000,'processadd.html','请假加班');">请假加班</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="dbsx:list"><dd><a href="javascript:showTab(20000,'processtodolist.html','待办事项');">待办事项</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="wdjl:list"><dd><a href="javascript:showTab(20000,'processlist.html','我的记录');">我的记录</a></dd></shiro:hasPermission>
 
                     </dl>
                 </li>
@@ -97,9 +97,9 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">部门管理</a>
                     <dl class="layui-nav-child">
-                        <shiro:hasPermission name="bmlb:list"><dd><a href="javascript:;">部门列表</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="bmxz:list"><dd><a href="javascript:;">部门新增</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="bmxg:list"><dd><a href="javascript:;">部门修改</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="bmlb:list"><dd><a href="javascript:showTab(20000,'departlist.html','部门列表');">部门列表</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="bmxz:list"><dd><a href="javascript:showTab(20000,'departadd.html','部门新增');">部门新增</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="bmxg:list"><dd><a href="javascript:showTab(20000,'departupdate.html','部门修改');">部门修改</a></dd></shiro:hasPermission>
 
                     </dl>
                 </li>
@@ -110,7 +110,6 @@
                     <dl class="layui-nav-child">
                         <shiro:hasPermission name="yglb:list"><dd><a href="javascript:;">员工列表</a></dd></shiro:hasPermission>
                         <shiro:hasPermission name="ygpl:list"><dd><a href="javascript:;">员工批量</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="ygxg:list"><dd><a href="javascript:;">员工修改</a></dd></shiro:hasPermission>
                         <shiro:hasPermission name="ygxz:list"><dd><a href="javascript:;">员工新增</a></dd></shiro:hasPermission>
 
                     </dl>
@@ -177,25 +176,8 @@
         base: 'media/layui/lay/modules/'
     }).use(['element','app'], function(){
         element = layui.element;
-        $.get("/usermenu.do",null,function (arr) {
-            var s;
-            for(i=0;i<arr.length;i++){
-                var parent=arr[i];
-                s+="<li class='layui-nav-item '> <a href='javascript:;' id='"+parent.id+"'><i class=\"fa "+parent.icon+"\"></i>&nbsp;"+parent.title+"</a>";
-                if(parent.childs.length>0){
-                    s+="<dl class='layui-nav-child'>";
-                    for(j=0;j<parent.childs.length;j++){
-                        var child=parent.childs[j];
-                        s+="<dd><a href='javascript:;' id='"+child.id+"' onclick='showTab("+child.id+",\""+child.aurl+"\",\""+child.title+"\")'>&nbsp;&nbsp;&nbsp;&nbsp;"+child.title+"</a></dd>";
-                    }
-                    s+="</dl>";
-                }
-                s+="</li>";
-            }
-            $("#lm").append(s);
-            element.render();
-        });
-        showTab(20000,"main.html","首页");
+
+        showTab(20000,"main.jsp","首页");
     });
     var tid=-1;
     function showTab(id,u,n) {

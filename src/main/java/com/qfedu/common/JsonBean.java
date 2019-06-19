@@ -2,13 +2,15 @@ package com.qfedu.common;
 
 public class JsonBean {
 
-    private int code;
+    private int code;//0  失败  1 成功
+
     private Object info;
 
     public JsonBean(){}
 
-    public JsonBean(int code, Object info){
+    public JsonBean(int code,Object info) {
         this.code = code;
+
         this.info = info;
     }
 

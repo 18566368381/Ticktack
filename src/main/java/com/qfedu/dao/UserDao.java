@@ -1,8 +1,10 @@
 package com.qfedu.dao;
 
+import com.qfedu.pojo.LoginLog;
 import com.qfedu.pojo.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by C on 2019/6/13.
@@ -14,4 +16,10 @@ public interface UserDao {
     // 查询用户拥有的权限
      List<String> findPermsByName(String name);
 
+
+    List<User> selectUser();
+
+    void deleteUser(String no);
+
+    List<User> selectUserBy(Map map);
 }
