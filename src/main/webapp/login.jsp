@@ -29,7 +29,7 @@
         </h1>
         <div class="layui-user-icon larry-login">
             <input type="text" placeholder="账号" class="login_txtbx" name="no" id="no"
-                   value="admin" />
+                   value="1902001" />
         </div>
         <div class="layui-pwd-icon larry-login">
             <input type="password" placeholder="密码" id="password" name="password" value="admin"

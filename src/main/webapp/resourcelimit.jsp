@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html xmlns:display="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,27 @@
 			</button>
 
 		</div>
-		<table id="tbdata" lay-filter="tbop">
+		<table class="layui-table" id="tbdata" lay-filter="tbop">
+			<thead>
+			<tr>
+				<td>序号</td>
+				<td>权限名</td>
+				<td>权限简称</td>
+				<td>页面类型</td>
+				<td>父类页面id</td>
+				<td>操作</td>
+			</tr>
+			</thead>
+			<tbody id="tid">
+			<tr>
+				<td>序号</td>
+				<td>权限名</td>
+				<td>页面简称</td>
+				<td>页面类型</td>
+				<td>父类页面id</td>
+				<td><input type="button" value="编辑" /><input type="button" value="删除" /></td>
+			</tr>
+			</tbody>
 		</table>
 		<script type="text/html" id="barop">
     		<a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
@@ -29,60 +50,65 @@
 	<script src="media/layui/layui.js"></script>
 	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 	<script>
-        var form;
-	layui.use(['table','form'], function(){
-		  var table = layui.table;
-		form=layui.form;
-        form.on('radio(level)', function (data) {
-            changePid(data.value);
-        });
-		  //第一个实例
-		  table.render({
-		    elem: '#tbdata'
-		    ,url: 'authoritylist.do' //数据接口
-		    ,page: true //开启分页
-		    ,cols: [[ //表头
-		      {field: 'id', title: '序号', sort: true, fixed: 'left'}
-		      ,{field: 'title', title: '名称'}
-		      ,{field: 'aurl', title: '页面路径',templet: function (obj) {
-                          return obj.parentId==0?"":obj.aurl}
-				  }
-		      ,{field: 'aicon', title: '图标', templet: function (obj) {
-                          return "<span><i class=\"fa "+obj.aicon+"\"></i></span>";
-                      }
-				  }
-		      ,{field: 'parentId', title: '级别', templet: function (obj) {
-					  return obj.parentId==0?"一级页面":"二级页面"}}
-		      ,{field:'right', title: '操作',toolbar:"#barop"}
-		    ]]
-		  });
-		  //监听工具条
-		  table.on('tool(tbop)', function(obj){
-		        var data = obj.data;
-		        if(obj.event === 'del'){
-		            layer.confirm('是否确认删除权限?', function(index){
-		                $.ajax({
-		                    url: "coursedelete.do",
-		                    type: "POST",
-		                    data:"id="+data.id,
-		                    success: function(data){
-		                        if(data.code==1000){
-		                            obj.del();//删除表格中的对应行数据
-		                            layer.close(index);
-		                            layer.msg("删除成功", {icon: 6});
-		                        }else{
-		                            layer.msg("删除失败", {icon: 5});
-		                        }
-		                    }
-		                });
-		            });
-		        } else if(obj.event === 'edit'){//编辑 修改
-		        	//get传递参数有中文，必须编码
-		        	//JSON.stringify 将对象转换为字符串
-		           location.href="courseupdate.html?d="+ encodeURI(JSON.stringify(data));
-		        }
-		});
-	});
+    $(function () {
+		loadData()
+	})
+	function loadData() {
+		$.ajax({
+			type:"get",
+			url:"authoritylist.do",
+			dataType:"json",
+			success:function (data) {
+				if(data.code==1){
+					$("#tid").empty()
+					var infos = data.info;
+					for(var i=0;i<infos.length;i++) {
+						var html = '<tr> ' +
+								'<td>' + infos[i].id + '</td> ' +
+								'<td>' + infos[i].pname + '</td> ' +
+								'<td>' + infos[i].pdesc + '</td> ' +
+								'<td>' + infos[i].ptype + '</td> '
+						if (infos[i].parentid == null) {
+							html += '<td>0</td>'
+						}
+						if (infos[i].parentid != null) {
+							html += '<td>' + infos[i].parentid + '</td> '
+						}
+
+						html += '<td><input type="button" onclick="edit('+infos[i].id+')" value="编辑" /><input type="button" onclick="del('+infos[i].id+')" value="删除" /></td> ' +
+								'</tr>'
+						$("#tid").append($(html));
+					}
+
+
+				}else{
+					alert(data.info);
+				}
+			}
+		})
+	}
+	function edit(id) {
+		window.location.href="courseupdate.jsp?id="+id
+	}
+	function del(id) {
+		if(confirm("确认删除id为"+id+"的数据吗？")){
+			$.ajax({
+				type:"get",
+				url:"delauthority.do",
+				dataType:"json",
+				data:{id:id},
+				success:function (data) {
+					if(data.code==1){
+						alert("删除成功")
+					}else{
+						alert(data.info)
+					}
+				}
+			})
+		}
+
+	}
+
 	function addAuth() {
         layer.open({
             area: ['500px', '380px'],
@@ -95,10 +121,10 @@
                     url: "authorityadd.do",
 					method:"post",
                     data: $("#fm1").serialize(),
-                    success: function (obj) {
-                        if (obj.code == 1000) {
+                    success: function (data) {
+                        if (obj.code == 1) {
                             layer.msg("新增权限成功");
-                            searchData();
+                            loadData();
                         } else {
                             layer.msg("新增权限失败");
                         }
@@ -131,33 +157,28 @@
 <div style="display: none;margin-top: 10px;width: 480px" id="dvlay">
 	<form id="fm1" class="layui-form " >
 		<div class="layui-form-item"  >
-			<label class="layui-form-label">名称：</label>
+			<label class="layui-form-label">权限名：</label>
 			<div class="layui-input-inline">
-				<input name="title" class="layui-input">
+				<input name="pname" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item"  >
-			<label class="layui-form-label">图标：</label>
+			<label class="layui-form-label">权限简称：</label>
 			<div class="layui-input-inline">
-				<input name="aicon" class="layui-input">
+				<input name="pdesc" class="layui-input">
 			</div>
 		</div>
+
 		<div class="layui-form-item" >
-			<label class="layui-form-label">路径：</label>
+			<label class="layui-form-label">页面类型：</label>
 			<div class="layui-input-inline">
-				<input name="aurl" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item" >
-			<label class="layui-form-label">级别：</label>
-			<div class="layui-input-inline">
-				<input type="radio" name="pid" value="0" lay-filter="level"  title="一级" checked>
-				<input type="radio" name="pid" value="-1" lay-filter="level"   title="二级" >
+				<input type="radio" name="ptype" value="1" lay-filter="level"  title="一级" checked>
+				<input type="radio" name="ptype" value="2" lay-filter="level"   title="二级" >
 			</div>
 		</div>
 		<input type="hidden" name="parentId" id="pid">
 		<div class="layui-form-item" id="dvl1" style="display: none" >
-			<label class="layui-form-label">上级路径：</label>
+			<label class="layui-form-label">父类页面id：</label>
 			<div class="layui-input-inline">
 				<select onselect="setPid(this)" id="spid" >
 
