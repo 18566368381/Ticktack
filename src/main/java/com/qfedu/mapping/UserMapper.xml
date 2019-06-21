@@ -23,8 +23,14 @@
         <select id="findPermsByName" parameterType="string" resultType="string">
                 select a.pdesc from t_user u inner join t_role r on u.role = r.id inner join t_roleauthority ra on r.id = ra.rid inner join t_authority a on ra.aid = a.id where no = #{name} and pdesc is not null;
         </select>
-        <select id="selectUser" resultMap="userMap">
-                select * from t_user
+        <select id="selectUser" parameterType="com.qfedu.pojo.User" resultMap="userMap">
+                select * from t_user where 1=1
+                <if test="no!=null and no!= ''">
+                         and no = #{no}
+                </if>
+                <if test="flag!=null and flag!= ''">
+                        and flag = #{flag}
+                </if>
         </select>
         <delete id="deleteUser" parameterType="String">
                 delete from t_user where no = #{no}

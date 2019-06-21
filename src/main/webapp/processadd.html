@@ -17,14 +17,14 @@
 
 					<label class="layui-form-label">起始日期</label>
 					<div class="layui-input-block">
-						<input type="text" name="startDate" class="layui-input mydate">
+						<input type="date" name="startDate" class="layui-input mydate">
 					</div>
 
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">结束日期</label>
 				<div class="layui-input-block">
-					<input type="text" name="endDate" class="layui-input mydate">
+					<input type="date" name="endDate" class="layui-input mydate">
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -51,8 +51,8 @@
 				<label class="layui-form-label">审批领导</label>
 				<div class="layui-input-block">
 					<select name="rname"  id="cds">
-						<option value="-1">--请选择领导--</option>
-						<option value="张三">张三</option>
+						<option value="无">--请选择领导--</option>
+
 					</select>
 				</div>
 			</div>
@@ -70,18 +70,18 @@
 	<script src="media/layui/layui.js"></script>
 	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 	<script>
-	var form;
+		var form;
 		layui
 				.use(
 						[ 'form', 'laydate' ],
 						function() {
 							form = layui.form, laydate = layui.laydate;
 							//日期
-                            lay('.mydate').each(function(){
-                                laydate.render({
-                                    elem: this
-                                });
-                            });
+							lay('.mydate').each(function(){
+								laydate.render({
+									elem: this
+								});
+							});
 							//自定义验证规则
 							form.verify({
 								title : function(value) {
@@ -94,15 +94,15 @@
 									layedit.sync(editIndex);
 								}
 							});
-					initData();
-		});
+							initData();
+						});
 		//初始化数据
 		function initData() {
-			$.get("departall.do",null,function(arr){
+			$.get("leaderall.do",null,function(arr){
 				for(i=0;i<arr.length;i++){
-					$("#cds").append("<option value='"+arr[i].id+"'>"+arr[i].name+"</option>");
+					$("#cds").append("<option value='"+arr[i].name+"'>"+arr[i].name+"</option>");
 				}
-				form.render("select");
+				form.render('select');
 			});
 		}
 	</script>

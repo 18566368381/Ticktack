@@ -9,6 +9,24 @@ public class Authority {
     private String pdesc;
     private Integer ptype;
     private Integer parentid;
+    private String aurl;
+    private String icon;
+
+    public String getAurl() {
+        return aurl;
+    }
+
+    public void setAurl(String aurl) {
+        this.aurl = aurl;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
     public Integer getId() {
         return id;

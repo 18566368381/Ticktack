@@ -40,7 +40,7 @@
 		      ,{field: 'tid', title: '任务序号'}
 		      ,{field: 'tname', title: '任务名称'}
 		      ,{field: 'tctime', title: '任务时间'}
-		      ,{field:'right', title: '操作',toolbar:"#barop",with:"120px"}
+		      ,{field:'right', title: '操作',toolbar:"#barop",with:"200px"}
 		    ]]
 		  });
 		  //监听工具条
@@ -51,7 +51,7 @@
 		                $.ajax({
 		                    url: "processupdate.do",
 		                    type: "POST",
-		                    data:"id="+data.id+"&flag=3&tid="+data.tid,
+		                    data:"id="+data.id,
 		                    success: function(data){
 		                        if(data.code==1000){
 		                            obj.del();//删除表格中的对应行数据
@@ -65,9 +65,9 @@
 		            });
 		        } else if(obj.event === 'y'){//编辑 修改
                     $.ajax({
-                        url: "processupdate.do",
+                        url: "processupdatey.do?logo=1",
                         type: "POST",
-                        data:"id="+data.id+"&flag=2&tid="+data.tid,
+                        data:"id="+data.id,
                         success: function(data){
                             if(data.code==1000){
                                 obj.del();//删除表格中的对应行数据

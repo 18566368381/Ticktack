@@ -1,7 +1,11 @@
 package com.qfedu.common;
 
 /**
+<<<<<<< HEAD
  * Created by 张齐 on 2019/6/19.
+=======
+ * Created by C on 2019/6/18.
+>>>>>>> 5d59f7631055d61bbcedbe941e7855569d00331b
  */
 public class CommonBean {
     private int code;
@@ -50,5 +54,8 @@ public class CommonBean {
     public void setData(Object data) {
         this.data = data;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5d59f7631055d61bbcedbe941e7855569d00331b
 }

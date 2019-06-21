@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.dao.RoleDao">
+    <resultMap id="roleMap" type="com.qfedu.pojo.Role">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="roleword" property="roleWord"></result>
+    </resultMap>
+   <select id="roleList" parameterType="com.qfedu.pojo.Role" resultMap="roleMap">
+       select * from t_role where 1=1
+       <if test="name!=null and name != ''">
+            and name = #{name}
+       </if>
+   </select>
+
+</mapper>

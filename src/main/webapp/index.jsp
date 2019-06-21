@@ -75,9 +75,9 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">权限管理</a>
                     <dl class="layui-nav-child">
-                        <shiro:hasPermission name="yhjs:list"><dd><a href="javascript:showTab(20000,'userlimit.jsp','用户角色');">用户角色</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="zygl:list"><dd><a href="javascript:showTab(20000,'resourcelimit.jsp','资源管理');">资源管理</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="jsqx:list"><dd><a href="javascript:showTab(20000,'rolelimit.jsp','角色权限');">角色权限</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="yhjs:list"><dd><a href="javascript:showTab(20000,'userlimit.html','用户角色');">用户角色</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="zygl:list"><dd><a href="javascript:showTab(20000,'resourcelimit.html','资源管理');">资源管理</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="jsqx:list"><dd><a href="javascript:showTab(20000,'rolelimit.html','角色权限');">角色权限</a></dd></shiro:hasPermission>
 
                     </dl>
                 </li>
@@ -185,6 +185,16 @@
         if(tid>0){
             element.tabDelete('demo',tid);
         }
+
+
+
+
+
+
+
+
+
+
         element.tabAdd('demo', {
             title:n
             ,content: '<iframe data-frameid="'+id+'" scrolling="auto" frameborder="0" src="'+u+'"></iframe>' //支持传入html

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.dao.DepartDao">
+    <resultMap id="departMap" type="com.qfedu.pojo.Depart">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="creat_time" property="creatTime"></result>
+        <result column="dcount" property="dcount"></result>
+
+    </resultMap>
+    <select id="departpage" resultMap="departMap">
+        select * from t_bumen
+    </select>
+    <delete id="delete" parameterType="Integer">
+        delete from t_bumen where id = #{id}
+    </delete>
+    <update id="update" parameterType="com.qfedu.pojo.Depart">
+        update t_bumen set name = #{name} where id = #{id}
+    </update>
+    <insert id="add" parameterType="com.qfedu.pojo.Depart">
+        insert into t_bumen(name,creat_time,dcount) values(#{name},#{creatTime},#{dcount})
+    </insert>
+
+
+
+
+</mapper>

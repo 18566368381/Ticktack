@@ -22,8 +22,8 @@ UserServiceImpl  implements UserService{
 
 
     @Override
-    public List<User> selectUser() {
-        return userDao.selectUser();
+    public List<User> selectUser(User user) {
+        return userDao.selectUser(user);
     }
 
     @Override
@@ -34,5 +34,10 @@ UserServiceImpl  implements UserService{
     @Override
     public List<User> selectUserBy(Map map) {
         return userDao.selectUserBy(map);
+    }
+
+    @Override
+    public void editUser(User user) {
+        userDao.editUser(user);
     }
 }
