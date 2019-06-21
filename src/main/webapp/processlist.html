@@ -27,7 +27,7 @@
 		  //第一个实例
 		  table.render({
 		    elem: '#tbdata'
-		    ,url: 'processlist.do' //数据接口
+		    ,url: 'processnolist.do' //数据接口
 		    ,page: true //开启分页
 		    ,cols: [[ //表头
 		      {field: 'id', title: '序号', sort: true, fixed: 'left'}
@@ -58,7 +58,7 @@
 		                $.ajax({
 		                    url: "processdel.do",
 		                    type: "POST",
-		                    data:"id="+data.id+"&pid="+data.pid,
+		                    data:"id="+data.id,
 		                    success: function(data){
 		                        if(data.code==1000){
 		                            obj.del();//删除表格中的对应行数据

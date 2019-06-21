@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.dao.AuthorityDao">
+    <resultMap id="authorityMap" type="com.qfedu.pojo.Authority">
+        <id column="id" property="id"></id>
+        <result column="pname" property="pname"></result>
+        <result column="pdesc" property="pdesc"></result>
+        <result column="ptype" property="ptype"></result>
+        <result column="parentid" property="parentid"></result>
+        <result column="aurl" property="aurl"></result>
+        <result column="aicon" property="aicon"></result>
+
+    </resultMap>
+    <select id="getList" resultMap="authorityMap">
+        select * from t_authority
+    </select>
+    <delete id="delauthority" parameterType="Integer">
+        delete from t_authority where id = #{id}
+    </delete>
+    <insert id="authorityadd" parameterType="com.qfedu.pojo.Authority">
+        insert into t_authority (pname,pdesc,ptype,parentid) values (#{pname},#{pdesc},#{ptype},#{parentid})
+    </insert>
+
+
+</mapper>

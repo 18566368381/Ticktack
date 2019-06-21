@@ -11,9 +11,11 @@ import java.util.Map;
  */
 public interface UserService {
 
-    List<User> selectUser();
+    List<User> selectUser(User user);
 
     void deleteUser(String no);
 
     List<User> selectUserBy(Map map);
+
+    void editUser(User user);
 }

@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,21 +18,11 @@
 			<div class="layui-form-item layui-form-text">
 				<label class="layui-form-label">角色名称：</label>
 				<div class="layui-input-block">
-					<input type="text" id="no" class="layui-input" placeholder="角色名称">
+					<input type="text" name="name" id="no" class="layui-input" placeholder="角色名称">
 				</div>
 			</div>
 		</div>
-		<div class="layui-col-xs3" style="margin-right: 20px">
-			<div class="layui-form-item layui-form-text">
-				<label class="layui-form-label">用户：</label>
-				<div class="layui-input-block">
-					<select class="layui-input" id="fg">
-						<option value="1">有效</option>
-						<option value="2">无效</option>
-					</select>
-				</div>
-			</div>
-		</div>
+
 		<div class="layui-col-xs2">
 			<div class="layui-form-item">
 				<div class="layui-input-block">
@@ -68,7 +57,7 @@
         tableIns = table.render({
             elem: '#tbdata'
             , url: 'rolepage.do' //数据接口
-            , page: false //关闭分页
+            , page: true //关闭分页
             , cols: [[ //表头
                 {field: 'id', title: '序号', sort: true, fixed: 'left'}
                 , {field: 'name', title: '角色名称'}
@@ -104,8 +93,8 @@
     function searchData() {
         tableIns.reload({
             where: { //设定异步数据接口的额外参数，任意设
-                no: $("#no").val()
-                , flag: $("#fg").val()
+                name: $("#no").val()
+
             }
             // , page: {
             //     curr: 1 //重新从第 1 页开始
@@ -136,9 +125,9 @@
             console.log(user.rids);
             for (i = 0; i < arr.length; i++) {
                 if(user.rids.indexOf(arr[i].id)>-1){
-                    $("#dv1").append("<input type=\"checkbox\" name=\"rids\" value='" + arr[i].id + "' title=\"" + arr[i].info + "\" checked>");
+                    $("#dv1").append("<input type=\"checkbox\" name=\"rids\" value='" + arr[i].id + "' title=\"" + arr[i].roleWord + "\" checked>");
                 }else{
-                    $("#dv1").append("<input type=\"checkbox\" name=\"rids\" value='" + arr[i].id + "' title=\"" + arr[i].info + "\">");
+                    $("#dv1").append("<input type=\"checkbox\" name=\"rids\" value='" + arr[i].id + "' title=\"" + arr[i].roleWord + "\">");
                 }
             }
             form1.render();
@@ -180,6 +169,7 @@
 		<div class="layui-form-item" pane>
 			<label class="layui-form-label">权限：</label>
 			<div class="layui-input-inline" id="dv1">
+
 			</div>
 		</div>
 	</form>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.dao.RequestDao">
+    <resultMap id="requestMap" type="com.qfedu.pojo.Request">
+        <id column="id" property="id"></id>
+        <result column="start_date" property="startDate"></result>
+        <result column="end_date" property="endDate"></result>
+        <result column="days" property="days"></result>
+        <result column="type" property="type"></result>
+        <result column="rname" property="rname"></result>
+        <result column="info" property="info"></result>
+        <result column="start_name" property="startname"></result>
+        <result column="pid" property="pid"></result>
+        <result column="tid" property="tid"></result>
+        <result column="tname" property="tname"></result>
+        <result column="tctime" property="tctime"></result>
+        <result column="flag" property="flag"></result>
+
+    </resultMap>
+    <insert id="insert" parameterType="com.qfedu.pojo.Request">
+        insert into t_request(start_date,end_date,days,type,rname,info,start_name,flag,tname) values (#{startDate},#{endDate},#{days},#{type},#{rname},#{info},#{startname},#{flag},#{tname})
+    </insert>
+    <select id="processlist" resultMap="requestMap">
+        select * from t_request
+    </select>
+    <update id="update" parameterType="com.qfedu.pojo.Request">
+        update t_request set flag = #{flag} where id = #{id}
+    </update>
+    <delete id="del" parameterType="Integer">
+        delete from t_request where id = #{id}
+    </delete>
+
+
+
+</mapper>

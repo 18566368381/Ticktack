@@ -1,5 +1,6 @@
 package com.qfedu.controller;
 
+import com.qfedu.common.CommonBean;
 import com.qfedu.common.JsonBean;
 import com.qfedu.pojo.LoginLog;
 import com.qfedu.pojo.User;
@@ -47,15 +48,15 @@ public class UserController {
 
 
     }
-    @RequestMapping("/userlist.do")
-    public JsonBean selectUser(){
-        List<User> list = userService.selectUser();
-        return new JsonBean(1,list);
+    @RequestMapping("/userall.do")
+    public CommonBean selectUser(User user){
+        List<User> list = userService.selectUser(user);
+        return new CommonBean(0,"",1000,list);
     }
-    @RequestMapping("/deleteUser.do")
-    public JsonBean deleteUser(String no){
+    @RequestMapping("/userdel.do")
+    public CommonBean deleteUser(String no){
         userService.deleteUser(no);
-        return new JsonBean(1,"删除成功");
+        return new CommonBean(0,"删除成功",1000,null);
     }
     @RequestMapping("/selectUser.do")
     public JsonBean selectUser(String no,Integer flag){
@@ -64,6 +65,11 @@ public class UserController {
         map.put("flag",flag);
         List<User> list = userService.selectUserBy(map);
         return new JsonBean(1,list);
+    }
+    @RequestMapping("/userroleedit.do")
+    public CommonBean editUser(User user){
+        userService.editUser(user);
+        return new CommonBean(0,"编辑成功",1000,null);
     }
 
 
