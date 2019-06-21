@@ -32,7 +32,7 @@
 		    ,cols: [[ //表头
 		      {field: 'no', title: '工号', sort: true, fixed: 'left'}
 		      ,{field: 'name', title: '员工名称'}
-		      ,{field: 'dname', title: '所属部门'}
+		      ,{field: 'd.tdepart.name', title: '所属部门',templet:'<div>{{d.tdepart ? d.tdepart.name: ""}}</div>'}
 		      ,{field: 'sex', title: '性别'}
 		      ,{field: 'phone', title: '手机号'}
 		      ,{field: 'qq', title: 'qq号'}
@@ -48,7 +48,7 @@
 		            layer.confirm('是否确认删除员工?', function(index){
 		                $.ajax({
 		                    url: "staffdelete.do",
-		                    type: "POST",
+		                    type: "get",
 		                    data:"no="+data.no,
 		                    success: function(data){
 		                        if(data.code==1000){

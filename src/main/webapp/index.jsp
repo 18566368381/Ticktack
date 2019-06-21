@@ -108,10 +108,10 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">员工管理</a>
                     <dl class="layui-nav-child">
-                        <shiro:hasPermission name="yglb:list"><dd><a href="javascript:;">员工列表</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="ygpl:list"><dd><a href="javascript:;">员工批量</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="ygxg:list"><dd><a href="javascript:;">员工修改</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="ygxz:list"><dd><a href="javascript:;">员工新增</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="yglb:list"><dd><a href="javascript:showTab(20000,'stafflist.html','员工列表');">员工列表</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="ygpl:list"><dd><a href="javascript:showTab(20000,'staffbatch.html','员工批量');">员工批量</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="ygxg:list"><dd><a href="javascript:showTab(20000,'staffupdate.html','员工修改');">员工修改</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="ygxz:list"><dd><a href="javascript:showTab(20000,'staffadd.html','员工新增');">员工新增</a></dd></shiro:hasPermission>
 
                     </dl>
                 </li>
@@ -120,9 +120,9 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">学科管理</a>
                     <dl class="layui-nav-child">
-                        <shiro:hasPermission name="xklb:list"><dd><a href="javascript:;">学科列表</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="xkxz:list"><dd><a href="javascript:;">学科新增</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="xkxg:list"><dd><a href="javascript:;">学科修改</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="xklb:list"><dd><a href="javascript:showTab(20000,'courselist.html','学科列表');">学科列表</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="xkxz:list"><dd><a href="javascript:showTab(20000,'courseadd.html','学科新增');">学科新增</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="xkxg:list"><dd><a href="javascript:showTab(20000,'courseupdate.html','学科修改');">学科修改</a></dd></shiro:hasPermission>
 
                     </dl>
                 </li>
@@ -131,9 +131,9 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">班级管理</a>
                     <dl class="layui-nav-child">
-                        <shiro:hasPermission name="bjlb:list"><dd><a href="javascript:;">班级列表</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="bjxz:list"><dd><a href="javascript:;">班级新增</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="bjxg:list"><dd><a href="javascript:;">班级修改</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="bjlb:list"><dd><a href="javascript:showTab(20000,'gradelist.html','班级列表');">班级列表</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="bjxz:list"><dd><a href="javascript:showTab(20000,'gradeadd.html','班级列表');">班级新增</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="bjxg:list"><dd><a href="javascript:showTab(20000,'gradeupdate.html','班级修改');">班级修改</a></dd></shiro:hasPermission>
 
                     </dl>
                 </li>
@@ -142,9 +142,9 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">学员管理</a>
                     <dl class="layui-nav-child">
-                        <shiro:hasPermission name="xylb:list"><dd><a href="javascript:;">学员列表</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="xydr:list"><dd><a href="javascript:;">学员导入</a></dd></shiro:hasPermission>
-                        <shiro:hasPermission name="xyxz:list"><dd><a href="javascript:;">学员新增</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="xylb:list"><dd><a href="javascript:showTab(20000,'studentlist.html','学员列表');">学员列表</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="xydr:list"><dd><a href="javascript:showTab(20000,'studentbatch.html','学员导入');">学员导入</a></dd></shiro:hasPermission>
+                        <shiro:hasPermission name="xyxz:list"><dd><a href="javascript:showTab(20000,'studentadd.html','学员新增');">学员新增</a></dd></shiro:hasPermission>
 
                     </dl>
                 </li>
@@ -177,24 +177,7 @@
         base: 'media/layui/lay/modules/'
     }).use(['element','app'], function(){
         element = layui.element;
-        $.get("/usermenu.do",null,function (arr) {
-            var s;
-            for(i=0;i<arr.length;i++){
-                var parent=arr[i];
-                s+="<li class='layui-nav-item '> <a href='javascript:;' id='"+parent.id+"'><i class=\"fa "+parent.icon+"\"></i>&nbsp;"+parent.title+"</a>";
-                if(parent.childs.length>0){
-                    s+="<dl class='layui-nav-child'>";
-                    for(j=0;j<parent.childs.length;j++){
-                        var child=parent.childs[j];
-                        s+="<dd><a href='javascript:;' id='"+child.id+"' onclick='showTab("+child.id+",\""+child.aurl+"\",\""+child.title+"\")'>&nbsp;&nbsp;&nbsp;&nbsp;"+child.title+"</a></dd>";
-                    }
-                    s+="</dl>";
-                }
-                s+="</li>";
-            }
-            $("#lm").append(s);
-            element.render();
-        });
+
         showTab(20000,"main.html","首页");
     });
     var tid=-1;
@@ -213,6 +196,8 @@
     }
 
 </script>
+
+
 </body>
 
 </html>

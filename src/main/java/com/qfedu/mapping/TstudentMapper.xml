@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <mapper namespace="com.qfedu.dao.TstudentDao">
+    <resultMap id="res1" type="com.qfedu.pojo.Tstudent">
+        <id column="no" property="no"></id>
+        <result column="name" property="name"></result>
+        <result column="sex" property="sex"></result>
+        <result column="birthday" property="birthday"></result>
+        <result column="cardno" property="cardno"></result>
+        <result column="school" property="school"></result>
+        <result column="education" property="education"></result>
+        <result column="gid" property="gid"></result>
+        <result column="flag" property="flag"></result>
+        <result column="email" property="email"></result>
+        <result column="qq" property="qq"></result>
+        <result column="phone" property="phone"></result>
+        <result column="introno" property="introno"></result>
+        <result column="createdate" property="createdate"></result>
+        <result column="photo" property="photo"></result>
+        <association property="tgrade" resultMap="res2"></association>
+    </resultMap>
+    <resultMap id="res2" type="com.qfedu.pojo.Tgrade">
+        <id column="id" property="id"></id>
+        <result column="ggname" property="name"></result>
+        <result column="flag" property="flag"></result>
+        <result column="week" property="week"></result>
+        <result column="createdate" property="createdate"></result>
+        <result column="location" property="location"></result>
+        <result column="count" property="count"></result>
+        <result column="gname" property="gname"></result>
+    </resultMap>
+
+
+    <select id="findAll" resultMap="res1">
+
+        SELECT s.no,s.name,g.name as ggname,s.sex,s.phone,s.email,s.school,s.education,s.birthday,s.createdate  from t_student s INNER JOIN t_grade g on s.gid=g.id
+
+    </select>
+
+    <insert id="addOne" parameterType="com.qfedu.pojo.Tstudent">
+
+        INSERT  into t_student(no,name,gid,sex,email,phone,qq,cardno,school,education,introno,birthday,createdate) values(#{no},#{name},#{gid},#{sex},#{email},#{phone},#{qq},#{cardno},#{school},#{education},#{introno},#{birthday},#{createdate})
+
+    </insert>
+</mapper>

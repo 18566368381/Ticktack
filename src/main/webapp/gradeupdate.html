@@ -36,8 +36,9 @@ function getData() {
 function showData(obj) {
 	$("#f1").val(obj.id);
 	$("#f2").val(obj.name);
-	$("#f3").val(obj.cname);
+	$("#f3").val(obj.gname);
 	$("#f4").val(obj.createdate);
+	$("#f7").val(obj.count);
 	$("#f5").val(obj.week);
 	$("#f6").val(obj.location);
 }
@@ -50,7 +51,7 @@ function showData(obj) {
 		<div class="layui-form-item">
 				<label class="layui-form-label">班级序号</label>
 				<div class="layui-input-block">
-					<input type="text" name="id" readonly="readonly" autocomplete="off"
+					<input type="text" name="id" autocomplete="off"
 						class="layui-input" id="f1">
 				</div>
 			</div>
@@ -64,14 +65,22 @@ function showData(obj) {
 			<div class="layui-form-item">
 				<label class="layui-form-label">班级学科</label>
 				<div class="layui-input-block">
-					<input type="text" id="f3" lay-verify="name" autocomplete="off"
-						readonly="readonly" class="layui-input">
+					<input type="text" name="gname" id="f3" lay-verify="name" autocomplete="off"
+						 class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">开班日期</label>
 				<div class="layui-input-block">
-				 <input type="text" readonly="readonly" id="f4" autocomplete="off" class="layui-input">
+				 <input type="date" name="createdate"  id="f4" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">班级人数</label>
+				<div class="layui-input-block">
+					<input type="text" name="count" id="f7" lay-verify="name" autocomplete="off"
+						   placeholder="请输入人数" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">

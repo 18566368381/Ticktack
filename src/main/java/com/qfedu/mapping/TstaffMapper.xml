@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <mapper namespace="com.qfedu.dao.TstaffDao">
+    <resultMap id="res" type="com.qfedu.pojo.Tstaff">
+        <id column="no" property="no"></id>
+        <result column="name" property="name"></result>
+        <result column="did" property="did"></result>
+        <result column="flag" property="flag"></result>
+        <result column="sex" property="sex"></result>
+        <result column="email" property="email"></result>
+        <result column="qq" property="qq"></result>
+        <result column="phone" property="phone"></result>
+        <result column="createdate" property="createdate"></result>
+        <result column="photo" property="photo"></result>
+        <association property="tdepart" resultMap="res2"></association>
+    </resultMap>
+
+    <resultMap id="res2" type="com.qfedu.pojo.Tdepart">
+        <id property="id" column="id"></id>
+        <result property="name" column="dname"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="flag" column="flag"></result>
+    </resultMap>
+
+
+    <select id="findAll" resultMap="res">
+
+        SELECT s.no,s.name,d.name as dname,s.sex,s.phone,s.qq,s.email,s.createdate from t_staff s INNER  join t_depart d on s.did=d.id
+
+    </select>
+
+    <update id="updateStaff" parameterType="com.qfedu.pojo.Tstaff">
+
+        UPDATE t_staff SET no=#{no},name=#{name},did=#{did},sex=#{sex},email=#{email},phone=#{phone},qq=#{qq},createdate=#{createdate} WHERE no=#{no}
+
+    </update>
+
+   <insert id="insertStaff" parameterType="com.qfedu.pojo.Tstaff">
+
+        insert into t_staff(no,name,did,sex,email,phone,qq,createdate) VALUES (#{no},#{name},#{did},#{sex},#{email},#{phone},#{qq},#{createdate})
+
+    </insert>
+
+    <delete id="deleteStaff" parameterType="Integer">
+
+        DELETE  from t_staff where no= #{no}
+
+    </delete>
+
+    <select id="findOne" parameterType="Integer" resultMap="res">
+
+        SELECT * from t_staff where no=#{no}
+
+    </select>
+
+</mapper>

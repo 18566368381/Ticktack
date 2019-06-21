@@ -31,7 +31,10 @@
             <label class="layui-form-label">所属部门</label>
 	            <div class="layui-input-block">
 	                <select name="did"  id="cds">
-	       				<option value="-1">--请选择部门--</option>
+	       				<option value="1">--后勤部--</option>
+						<option value="2">--技术部--</option>
+						<option value="3">--人事部--</option>
+
 	      			</select>
 	            </div>
             </div>
@@ -66,7 +69,7 @@
                     <input type="text" name="createdate" id="date" autocomplete="off" class="layui-input">
                 </div>
 	        </div>
- 			<div class="layui-form-item">
+<!-- 			<div class="layui-form-item">
  				 <label class="layui-form-label">照片</label>
  				 <button type="button" class="layui-btn" id="upfile">
 				  <i class="layui-icon">&#xe67c;</i>上传图片
@@ -75,9 +78,9 @@
  				 <div class="layui-input-block">
  				 	<img alt="个人一寸照片"  id="img1" width="200px" height="300px">
  				 </div>
- 			</div>
+ 			</div>-->
 			<div class="layui-form-item">
-				<input class="layui-btn"  style="margin-left: 10%"  id="btn1" disabled="disabled" type="submit" value="确认新增">
+				<input class="layui-btn"  style="margin-left: 10%"  id="btn1"  type="submit" value="确认新增">
 			</div>
 		</form>
 	</div>
@@ -142,7 +145,8 @@
 				}
 				form.render("select");
 			});
-			$.get("staffno.do",null,function(obj){
+			$.get("staffpage" +
+					".do",null,function(obj){
 				if(obj.msg=='null'){
 					$("#no1").val("qf000001");
 				}else{
@@ -151,6 +155,10 @@
 				
 			})
 		}
+
 	</script>
+
+
+
 </body>
 </html>

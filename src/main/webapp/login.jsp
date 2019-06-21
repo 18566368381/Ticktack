@@ -52,7 +52,7 @@
 <script type="text/javascript" src="media/js/login.js"></script>
 <script type="application/javascript" src="media/js/verify.min.js"></script>
 <script type="text/javascript">
-    /*$(function() {
+ /*   $(function() {
         //滑动验证码
         $('#mpanel4').pointsVerify({
             defaultNum : 6, //默认的文字数量
@@ -73,12 +73,13 @@
                 //......后续操作
                 $("#btn1").attr("disabled", false);
 
+
             },
             error : function() {
             }
         });
-    });*/
-    $("form").submit(function () {
+    })*/
+   $("form").submit(function () {
         $.ajax({
             type:"get",
             url:"login.do",
